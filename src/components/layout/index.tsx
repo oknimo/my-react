@@ -15,6 +15,10 @@ const AppRoot = () => {
 		navigate('/index', {
       replace: true
     })
+		const el = document.getElementById('root')
+		if (el) {
+			el.style.height = '100%'
+		}
 	}, [])
 
 	return (

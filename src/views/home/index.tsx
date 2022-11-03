@@ -1,8 +1,24 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import reactLogo from '@/assets/react.svg'
+import { SET_LOADING,SET_TITLE } from '../../store/slices/system.slice'
+import { useAppDispatch, useAppSelector } from '../../common/hooks'
+import { Button } from 'antd'
 
 function HomePage() {
   const [count, setCount] = useState(0)
+  const loading = useAppSelector(state => state.system.loading)
+  const title = useAppSelector(state => state.system.title)
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    console.log(loading);
+  }, [loading])
+
+  const handAdd = () => {
+    {console.log("handAdd")}
+    setCount((count) => count + 1)
+    // dispatch(SET_LOADING())
+    dispatch(SET_TITLE({title: title + count}))
+  }
 
   return (
     <div className="App">
@@ -14,9 +30,9 @@ function HomePage() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>Vite + React + {title}</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={handAdd}>
           count is {count}
         </button>
         <p>
